@@ -1,0 +1,35 @@
+# -----------------------------------------------------
+# 1. Project-Specific Generated Data (ChromADB Storage)
+# -----------------------------------------------------
+chroma_persistent_storage/
+
+# -----------------------------------------------------
+# 2. Python Environment and Dependencies
+# -----------------------------------------------------
+.venv/
+venv/
+env/
+
+# Byte-compiled Python files and cache
+__pycache__/
+*.pyc
+
+# Distribution and packaging files
+dist/
+build/
+*.egg-info/
+.coverage
+
+# -----------------------------------------------------
+# 3. Operating System Files (macOS & Linux)
+# -----------------------------------------------------
+.DS_Store
+*~
+*.swp
+*.swo
+
+# -----------------------------------------------------
+# 4. Environment Variables and Logs
+# -----------------------------------------------------
+.env
+*.log
