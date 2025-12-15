@@ -9,12 +9,7 @@
 3.  [Technical Stack](#3-technical-stack-🛠️)
 4.  [Prerequisites](#4-prerequisites-📦)
 5.  [Getting Started](#5-getting-started-🚀)
-    - [5.1. Configuration (.env)](#51-configuration-env)
-    - [5.2. Download Knowledge Base](#52-download-knowledge-base)
-    - [5.3. Setup Python Environment](#53-setup-python-virtual-environment)
-    - [5.4. Install Dependencies](#54-install-dependencies)
-    - [5.5. Run the Applications](#55-run-the-applications)
-6.  [LangChain RAG Flow Details](#6-langchain-rag-flow-details-⚙️)
+6.  [Resources](#6-resources-)
 
 <br></br>
 
@@ -52,6 +47,7 @@ This repository provides two distinct, executable RAG chains built with LangChai
 | **Vector DB**       | [Chroma](https://docs.trychroma.com/) (Persistent)                            | Stores and indexes the document embeddings.                   |
 | **PDF Loader**      | `PyPDFLoader` (LangChain Wrapper)                                             | Loads and extracts text content from the PDF.                 |
 | **Source Data**     | [The Brain Facts Book](https://www.brainfacts.org/the-brain-facts-book) (PDF) | The sole knowledge base for grounding answers.                |
+| **Development OS**  | Linux Mint 21.2                                                               | The system used for development.                              |
 
 <br></br>
 
@@ -59,16 +55,23 @@ This repository provides two distinct, executable RAG chains built with LangChai
 
 You must have the following installed and configured:
 
-- **Python 3.x**
-- An **OpenRouter API Key**
+- **Python 3.10.12+**
+  > ⚠️ **Version Note:** This project was developed and tested using **Python 3.10.12**. While most dependencies will work with newer versions (e.g., Python 3.11/3.12), it is recommended using Python 3.10 or a compatible version to ensure environmental stability.
+- An **OpenRouter API Key** (Set as `OPENROUTER_API_KEY` in the `.env` file).
 
 <br></br>
 
 ## 5. Getting Started 🚀
 
-### 5.1. Configuration (`.env`)
+### 5.1. Download Knowledge Base
 
-1.  Create a file named `.env` in the project's root directory.
+1. Download a copy of [The Brain Facts Book](https://www.brainfacts.org/the-brain-facts-book) PDF.
+2. Name the file exactly as: `brain_facts_book.pdf`
+3. Replace the empty `brain_facts_book.pdf` file inside the project's `/data `folder with your downloaded sample.
+
+### 5.2. Configuration (`.env`)
+
+1.  In the root directory of this project, rename the `.env.example` to `.env`.
 2.  Populate the file with your OpenRouter API key:
 
 ```dotenv
@@ -76,12 +79,6 @@ OPENROUTER_API_KEY=sk-or-v1-Your_OpenRouter_API_Key
 ```
 
 ⚠️ **Security Tip**: Never commit your `.env` file to version control.
-
-### 5.2. Download Knowledge Base
-
-1. Download a copy of [The Brain Facts Book](https://www.brainfacts.org/the-brain-facts-book) PDF.
-2. Name the file exactly as: `brain_facts_book.pdf`
-3. Place it inside the project's `/data `folder.
 
 ### 5.3. Setup Python Virtual Environment
 
@@ -117,7 +114,13 @@ Windows (PowerShell):
 
 Your command prompt will now show the environment name, like `(.venv) user@host:~/project$`, indicating that it is active.
 
-### 5.4. Install Dependencies
+### 5.4. Update pip
+
+```Bash
+python -m pip install --upgrade pip
+```
+
+### 5.5. Install Dependencies
 
 With the virtual environment active, install all necessary packages from `requirements.txt`:
 
@@ -125,54 +128,44 @@ With the virtual environment active, install all necessary packages from `requir
 pip install -r requirements.txt
 ```
 
-### 5.5. Run the Application
+### 5.6. Run the Application
 
-You can now run either the naive or the HyDE implementation. **The indexing phase will only run the first time** and populate the `chroma_persistent_storage` folder.
+You can now run either the naive or the HyDE implementation.
 
 ```Bash
-# Run the Naive RAG implementation
-python3 app-rag-naive.py
+# Single question
+python3 app-langchain.py "Your question here."
 
 #OR
 
-# Run the HyDE RAG implementation
-python app-rag-hyde.py
+# Continuous chat
+python3 app-langchain-chat.py
 ```
+
+### 5.7. Deactivate the environment
 
 When you are finished, exit the isolated environment:
 
-```Bash
+```bash
 deactivate
 ```
 
+Your command prompt will return to its default state, and the environment name `(.venv)` will disappear.
+
 <br></br>
 
-## 6. LangChain RAG Flow Details ⚙️
+## 6. Resources 📚
 
-### Indexing (RAG Step 1)
+[Build a RAG agent with LangChain](https://docs.langchain.com/oss/python/langchain/rag)
 
-The PDF is loaded using `PyPDFLoader`, chunked using `RecursiveCharacterTextSplitter`, and then the chunks are embedded by the local **Sentence Transformer model** and persisted in **ChromaDB**.
+[Get started with Chroma vector stor](https://docs.langchain.com/oss/python/integrations/vectorstores/chroma)
 
-### Simple QA Chain (`app-langchain.py`)
+[PyPDFLoader](https://docs.langchain.com/oss/python/integrations/document_loaders/pypdfloader)
 
-This uses the powerful LCEL:
+[ChromaDB](https://docs.trychroma.com/docs/overview/introduction)
 
-1. The user `input` is mapped to the `question` key.
+[Sentence Transformer](https://www.sbert.net/docs/sentence_transformer/pretrained_models.html)
 
-2. `RunnableParallel` runs two paths:
+[sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
 
-   - **Generation Path**: `question` -> `retriever` -> `format_docs` -> `context` is used in `ANSWER_PROMPT` -> `llm_model` -> `output` (final answer).
-
-   - **Source Path**: `question` -> `retriever` -> `source_documents` (raw chunks).
-
-### Conversational RAG Chain (`app-langchain-chat.py`)
-
-This chain introduces memory to handle context-dependent questions:
-
-1. **History-Aware Retrieval**: The user's new `input` and the `chat_history` are passed to a prompt (`CONTEXTUALIZE_Q_PROMPT`). The LLM uses this to rewrite the input into a standalone query (e.g., "_What about the hippocampus?_" becomes "What is the primary function of the hippocampus?").
-
-2. **Retrieval**: The standalone query is passed to the `retriever` to find relevant chunks.
-
-3. **Generation**: The context, `chat_history`, and original input are combined in the `FINAL_ANSWER_PROMPT`, and the LLM generates the response.
-
-4. **Memory Management**: `RunnableWithMessageHistory` intercepts the input/output and automatically updates the `Chat Message History` object for the next turn.
+[OpenRouterAi](https://openrouter.ai/)
