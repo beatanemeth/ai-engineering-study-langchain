@@ -25,6 +25,7 @@ PDF_FILE_PATH = os.path.join(current_dir, "data", "brain_facts_book.pdf")
 CHROMA_STORAGE_PATH = os.path.join(current_dir, "chroma_persistent_storage")
 COLLECTION_NAME = "neuroscience_rag_collection"
 OPENROUTER_MODEL = "google/gemma-3-27b-it:free"
+EMBEDDINGS_MODEL = "all-MiniLM-L6-v2"
 
 # Load environment variables from .env file
 load_dotenv()
@@ -59,7 +60,7 @@ llm_model = ChatOpenAI(
 # to ensure it uses the CPU if you don't have a configured GPU.
 log_info("Initializing SentenceTransformer, a local embeddings model: all-MiniLM-L6-v2")
 embeddings = SentenceTransformerEmbeddings(
-    model_name="all-MiniLM-L6-v2", model_kwargs={"device": "cpu"}
+    model_name=EMBEDDINGS_MODEL, model_kwargs={"device": "cpu"}
 )
 
 ## 3. Vector Store (Chroma)
@@ -243,7 +244,6 @@ def execute_query(chain, query):  # Renamed 'agent_executor' to 'chain' for clar
     # Print the source documents
     log_step(f"Sources Used ({len(sources)} Chunks):")
     for i, doc in enumerate(sources):
-        # Using .get for safer access, though 'page' should be reliable
         page_num = doc.metadata.get("page", "N/A")
         print(f"Source_{i+1} (Page: {page_num}):")
         print(f"  {doc.page_content[:200]}...")
@@ -261,4 +261,4 @@ if __name__ == "__main__":
     else:
         log_warn("No question provided as argument.")
         log_info("Example:")
-        print('   python3 rag.py "What is the corpus callosum?"')
+        print('   python3 your-rag-app.py "What is the corpus callosum?"')

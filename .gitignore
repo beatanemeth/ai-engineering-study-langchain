@@ -1,7 +1,11 @@
 # -----------------------------------------------------
-# 1. Project-Specific Generated Data (ChromADB Storage)
+# 1. Project-Specific Generated Data (ChromaDB Storage)
 # -----------------------------------------------------
 chroma_persistent_storage/
+chroma_persistent_storage_chat/
+
+# Source Data Files
+data/
 
 # -----------------------------------------------------
 # 2. Python Environment and Dependencies

@@ -1,0 +1,5 @@
+This file is empty. It represents an empty file of The Brain Facts Book.
+
+1. Download a copy of [The Brain Facts Book](https://www.brainfacts.org/the-brain-facts-book) PDF.
+2. Name the file exactly as: `brain_facts_book.pdf`
+3. Place it inside the project's `/data `folder.

@@ -29,9 +29,10 @@ from utils_logging import log_info, log_warn, log_error, log_step
 # -----------------------------------------------------
 current_dir = os.path.dirname(os.path.abspath(__file__))
 PDF_FILE_PATH = os.path.join(current_dir, "data", "brain_facts_book.pdf")
-CHROMA_STORAGE_PATH = os.path.join(current_dir, "chroma_persistent_storage")
+CHROMA_STORAGE_PATH = os.path.join(current_dir, "chroma_persistent_storage_chat")
 COLLECTION_NAME = "neuroscience_rag_collection"
 OPENROUTER_MODEL = "google/gemma-3-27b-it:free"
+EMBEDDINGS_MODEL = "all-MiniLM-L6-v2"
 
 # Load environment variables from .env file
 load_dotenv()
@@ -66,7 +67,7 @@ llm_model = ChatOpenAI(
 # to ensure it uses the CPU if you don't have a configured GPU.
 log_info("Initializing SentenceTransformer, a local embeddings model: all-MiniLM-L6-v2")
 embeddings = SentenceTransformerEmbeddings(
-    model_name="all-MiniLM-L6-v2", model_kwargs={"device": "cpu"}
+    model_name=EMBEDDINGS_MODEL, model_kwargs={"device": "cpu"}
 )
 
 ## 3. Vector Store (Chroma)
@@ -310,7 +311,6 @@ if __name__ == "__main__":
     print("\n--- 🧠 Neuroscience Chat Initiated ---")
     print(f"Session ID: {SESSION_ID}")
     print("Ask a question about the brain.")
-    # UPDATED EXIT MESSAGE
     print("Type **'quit'**, **'exit'**, or **'no'** to end the chat.")
     print("-" * 40)
 
