@@ -1,19 +1,21 @@
-# 🦜 LangChain RAG Project: Simple QA vs. Continuous Chat
+# LangChain RAG Project: Simple QA vs. Continuous Chat
 
-> A project that advances previous RAG work - [AI Engineering - Study RAG](https://github.com/beatanemeth/ai-engineering-study-rag) - by utilizing **LangChain** to orchestrate RAG pipelines, including a demonstration of how to implement **Conversational Memory** for contextual, multi-turn chat.
-
-## Table of Contents
-
-1.  [Project Overview & Learning Goals](#1-project-overview--learning-goals-)
-2.  [Architectures Implemented](#2-architectures-implemented-🧠)
-3.  [Technical Stack](#3-technical-stack-🛠️)
-4.  [Prerequisites](#4-prerequisites-📦)
-5.  [Getting Started](#5-getting-started-🚀)
-6.  [Resources](#6-resources-)
+> A project that advances previous RAG work—[AI Engineering - Study RAG](https://github.com/beatanemeth/ai-engineering-study-rag)—by utilizing **LangChain** to orchestrate RAG pipelines, including a demonstration of how to implement **Conversational Memory** for contextual, multi-turn chat. Also, the same project **evolved into a solution for a real-world use case**, which is detailed in the separate repository: [AI Engineering - Custom Wix Data Chat](https://github.com/beatanemeth/ai-engineering-custom-wix-data-chat).
 
 <br></br>
 
-## 1. Project Overview & Learning Goals 🎯
+## Table of Contents
+
+1.  [Project Overview & Learning Goals](#1-project-overview--learning-goals)
+2.  [Architectures Implemented](#2-architectures-implemented)
+3.  [Technical Stack](#3-technical-stack)
+4.  [Prerequisites](#4-prerequisites)
+5.  [Getting Started](#5-getting-started)
+6.  [Resources](#6-resources)
+
+<br></br>
+
+## 1. Project Overview & Learning Goals
 
 This project transitions from plain Python code to using the **LangChain framework** to streamline the RAG process, focusing on flexibility and advanced features like memory.
 
@@ -26,7 +28,7 @@ This project transitions from plain Python code to using the **LangChain framewo
 
 <br></br>
 
-## 2. Architectures Implemented 🧠
+## 2. Architectures Implemented
 
 This repository provides two distinct, executable RAG chains built with LangChain:
 
@@ -37,7 +39,7 @@ This repository provides two distinct, executable RAG chains built with LangChai
 
 <br></br>
 
-## 3. Technical Stack 🛠️
+## 3. Technical Stack
 
 | Component           | Detail                                                                        | Use                                                           |
 | :------------------ | :---------------------------------------------------------------------------- | :------------------------------------------------------------ |
@@ -51,17 +53,17 @@ This repository provides two distinct, executable RAG chains built with LangChai
 
 <br></br>
 
-## 4. Prerequisites 📦
+## 4. Prerequisites
 
 You must have the following installed and configured:
 
 - **Python 3.10.12+**
-  > ⚠️ **Version Note:** This project was developed and tested using **Python 3.10.12**. While most dependencies will work with newer versions (e.g., Python 3.11/3.12), it is recommended using Python 3.10 or a compatible version to ensure environmental stability.
+  > **Version Note:** This project was developed and tested using **Python 3.10.12**. While most dependencies will work with newer versions (e.g., Python 3.11/3.12), it is recommended using Python 3.10 or a compatible version to ensure environmental stability.
 - An **OpenRouter API Key** (Set as `OPENROUTER_API_KEY` in the `.env` file).
 
 <br></br>
 
-## 5. Getting Started 🚀
+## 5. Getting Started
 
 ### 5.1. Download Knowledge Base
 
@@ -78,7 +80,8 @@ You must have the following installed and configured:
 OPENROUTER_API_KEY=sk-or-v1-Your_OpenRouter_API_Key
 ```
 
-⚠️ **Security Tip**: Never commit your `.env` file to version control.
+**Security Tip**:  
+Never commit your `.env` file to version control.
 
 ### 5.3. Setup Python Virtual Environment
 
@@ -154,7 +157,7 @@ Your command prompt will return to its default state, and the environment name `
 
 <br></br>
 
-## 6. Resources 📚
+## 6. Resources
 
 [Build a RAG agent with LangChain](https://docs.langchain.com/oss/python/langchain/rag)
 
